@@ -25,7 +25,7 @@
             <value>${jdbc.username}</value>
         </property>
         <property name="password">
-            <value>${jdbc.password}</value>
+            <value>123456</value>
         </property>
         <property name="initialSize">
             <value>${jdbc.initialSize}</value>

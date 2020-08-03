@@ -80,13 +80,13 @@ public class ApiGoodsController extends ApiBaseAction {
     private ApiCartService cartService;
     @Autowired
     private MlsUserSer mlsUserSer;
-    
-    //上传文件集合   
-    private List<File> file;   
-    //上传文件名集合   
-    private List<String> fileFileName;   
-    //上传文件内容类型集合   
-    private List<String> fileContentType;   
+
+    //上传文件集合
+    private List<File> file;
+    //上传文件名集合
+    private List<String> fileFileName;
+    //上传文件内容类型集合
+    private List<String> fileContentType;
 
     /**
      */
@@ -102,7 +102,7 @@ public class ApiGoodsController extends ApiBaseAction {
         //
         return toResponsSuccess(goodsList);
     }
-    
+
     /**
      * 秒杀产品列表
      */
@@ -346,8 +346,8 @@ public class ApiGoodsController extends ApiBaseAction {
 
         return toResponsSuccess(resultObj);
     }
-    
-    
+
+
     /**
      * 商品详情页数据
      */
@@ -356,9 +356,9 @@ public class ApiGoodsController extends ApiBaseAction {
             @ApiImplicitParam(name = "referrer", value = "商品referrer", paramType = "path", required = false)})
     @GetMapping(value = "detail2")
     public Object detail2(@APPLoginUser MlsUserEntity2 loginUser, Integer id, Long referrer) {
-    	
+
 //    	System.out.println("2222222222222222222222222222222222");
-    	
+
         Map<String, Object> resultObj = new HashMap();
         //
         Long userId = loginUser.getMlsUserId();
@@ -735,8 +735,8 @@ public class ApiGoodsController extends ApiBaseAction {
         Map<String, Object> resultObj = new HashMap();
         Map bannerInfo = new HashMap();
         bannerInfo.put("url", "");
-        bannerInfo.put("name", "大家都在买的严选好物");
-        bannerInfo.put("img_url", "https://platform-wxmall.oss-cn-beijing.aliyuncs.com/upload/20180727/1504208321fef4.png");
+        bannerInfo.put("name", "精选宠物用品");
+        bannerInfo.put("img_url", "https://itek-1252190015.cos.ap-nanjing.myqcloud.com/*/20200609/102303124a07e1.jpg");
         resultObj.put("bannerInfo", bannerInfo);
         return toResponsSuccess(resultObj);
     }
@@ -866,9 +866,9 @@ public class ApiGoodsController extends ApiBaseAction {
         goodsData.setGoodsList(goodsData.getData());
         return toResponsSuccess(goodsData);
     }
-    
 
-    
+
+
     /**
      * 商品二维码图片请求
      */
@@ -882,22 +882,22 @@ public class ApiGoodsController extends ApiBaseAction {
 		String returnUrl = pagePath + qrCode;//返回路径
     	//查看文件夹是否存在
 		QRCodeUtils.dirExists(new File(urlPath + pagePath));
-		//判断文件是否存在，存在就返回路径 
+		//判断文件是否存在，存在就返回路径
 		if(QRCodeUtils.fileExists(new File(qrcodeUrl))){
 			toResponsSuccess(returnUrl);
 		}
-		
+
 		//底图
 		String baseFilePath = urlPath + "statics/base/base.png";
-		
-		
+
+
 
         //获取商品主图和2张配图
         GoodsVo goods = goodsService.queryObject(goodId);
         String p1 = goods.getPrimary_pic_url();//主图
         String p2 = goods.getList_pic_url();//配图1
         String p3 = goods.getList_pic_url();//配图2
-        
+
         //获取logo
       	BrandVo brand = brandService.queryObject(goods.getBrand_id());
       	String p4 = brand.getLogo();
@@ -906,17 +906,17 @@ public class ApiGoodsController extends ApiBaseAction {
         String accessToken = tokenService.getAccessToken() ;
         BufferedInputStream bis = QRCodeUtils.getGoodQrCode(accessToken,this.getUserId(), goodId);
         **/
-        
+
         try {
         	 //非调用小程序生产二维码
         	String content = "http://muserqrcode.51shop.ink?id="+goodId+"&userId="+loginUser.getMlsUserId();
         	BufferedImage qrcode = QRCodeUtil.createImage(content, null, false);
-        	
-//        	FileInputStream baseIn = new FileInputStream(baseFilePath);  
+
+//        	FileInputStream baseIn = new FileInputStream(baseFilePath);
 //        	InputStream p1In = ImageUtils.getImage(p1);
 //        	InputStream p2In = ImageUtils.getImage(p1);
 //        	InputStream p3In = ImageUtils.getImage(p1);
-        	
+
 			String newUrl = ImageUtils.coverImage(baseFilePath, p1, 34, 306, 645, 645, qrcodeUrl);
 			ImageUtils.coverImage(newUrl, p2, 700, 306, 315, 315, qrcodeUrl);
 			ImageUtils.coverImage(newUrl, p3, 700, 642, 315, 315, qrcodeUrl);
@@ -930,10 +930,10 @@ public class ApiGoodsController extends ApiBaseAction {
 			e.printStackTrace();
 		}
         return toResponsSuccess(returnUrl);
-        
+
     }
-    
-    
+
+
     /**
      * 商品二维码图片请求
      */
@@ -947,22 +947,22 @@ public class ApiGoodsController extends ApiBaseAction {
 		String returnUrl = pagePath + qrCode;//返回路径
     	//查看文件夹是否存在
 		QRCodeUtils.dirExists(new File(urlPath + pagePath));
-		//判断文件是否存在，存在就返回路径 
+		//判断文件是否存在，存在就返回路径
 		if(QRCodeUtils.fileExists(new File(qrcodeUrl))){
 			toResponsSuccess(returnUrl);
 		}
-		
+
 		//底图
 		String baseFilePath = urlPath + "statics/base/base2.png";
-		
-		
+
+
 
         //获取商品主图和2张配图
         GoodsVo goods = goodsService.queryObject(goodId);
         String p1 = goods.getPrimary_pic_url();//主图
         String p2 = goods.getList_pic_url();//配图1
         String p3 = goods.getList_pic_url();//配图2
-        
+
         //获取logo
       	BrandVo brand = brandService.queryObject(goods.getBrand_id());
       	String p4 = brand.getLogo();
@@ -971,17 +971,17 @@ public class ApiGoodsController extends ApiBaseAction {
         String accessToken = tokenService.getAccessToken() ;
         BufferedInputStream bis = QRCodeUtils.getGoodQrCode(accessToken,this.getUserId(), goodId);
         **/
-        
+
         try {
         	 //非调用小程序生产二维码
         	String content = "http://muserqrcode.51shop.ink?id="+goodId+"&userId="+loginUser.getMlsUserId();
         	BufferedImage qrcode = QRCodeUtil.createImage(content, null, false);
-        	
-//        	FileInputStream baseIn = new FileInputStream(baseFilePath);  
+
+//        	FileInputStream baseIn = new FileInputStream(baseFilePath);
 //        	InputStream p1In = ImageUtils.getImage(p1);
 //        	InputStream p2In = ImageUtils.getImage(p1);
 //        	InputStream p3In = ImageUtils.getImage(p1);
-        	
+
 			String newUrl = ImageUtils.coverImage(baseFilePath, p1, 50, 423, 645, 645, qrcodeUrl);
 			ImageUtils.coverImage(newUrl, p2, 700, 423, 315, 315, qrcodeUrl);
 			ImageUtils.coverImage(newUrl, p3, 700, 755, 315, 315, qrcodeUrl);
@@ -991,11 +991,11 @@ public class ApiGoodsController extends ApiBaseAction {
 			ImageUtils.coverText(newUrl, goods.getName(), 53, 240, qrcodeUrl,new Font("宋体",Font.BOLD,40),Color.gray);
 			ImageUtils.coverText(newUrl, "￥", 50, 348, qrcodeUrl,new Font("宋体",Font.BOLD,30),Color.RED);
 			ImageUtils.coverText(newUrl, goods.getRetail_price().toString() , 90, 348, qrcodeUrl,new Font("宋体",Font.BOLD,50),Color.RED);
-			
-			AttributedString as = new AttributedString(goods.getMarket_price().toString());  
-			as.addAttribute(TextAttribute.FONT, new Font("宋体",Font.BOLD,30));  
-			as.addAttribute(TextAttribute.FOREGROUND, Color.lightGray);   
-		    as.addAttribute(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);  
+
+			AttributedString as = new AttributedString(goods.getMarket_price().toString());
+			as.addAttribute(TextAttribute.FONT, new Font("宋体",Font.BOLD,30));
+			as.addAttribute(TextAttribute.FOREGROUND, Color.lightGray);
+		    as.addAttribute(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
 			ImageUtils.coverText(newUrl, 320, 348, qrcodeUrl,as);
 			ImageUtils.coverText(newUrl, "请在微信长按识别二维码选购商品", 280, 1275, qrcodeUrl,new Font("宋体",Font.BOLD,26),Color.lightGray);
 		} catch (Exception e) {
@@ -1004,8 +1004,8 @@ public class ApiGoodsController extends ApiBaseAction {
 		}
         return toResponsSuccess(returnUrl);
     }
-    
-    
+
+
     /**
      * 上传商品图片
      */
@@ -1013,7 +1013,7 @@ public class ApiGoodsController extends ApiBaseAction {
     @RequestMapping("uploadImage")
     public String uploadImage(@RequestParam("file") MultipartFile file, String imageType) {
     	System.out.println("==========");
-    	
+
     	if (file.isEmpty()) {
             throw new RRException("上传文件不能为空");
         }
@@ -1027,10 +1027,10 @@ public class ApiGoodsController extends ApiBaseAction {
 		}
 
         System.out.println(url);
-    	
+
     	return url;
     }
-    
+
     /**
      * app新增商品
      */
@@ -1040,9 +1040,9 @@ public class ApiGoodsController extends ApiBaseAction {
     	System.out.println(goodsname);
     	System.out.println(imageUrl);
     	System.out.println(imageUrl2);
-    	
+
     	String a = request.getParameter("goodsname");
-    	
+
     	GoodsVo goods = new GoodsVo();
     	Integer id = goodsService.queryMaxId() + 1;
         goods.setId(id);
@@ -1050,7 +1050,7 @@ public class ApiGoodsController extends ApiBaseAction {
         goods.setPrimary_pic_url(imageUrl.toString());
         goods.setList_pic_url(imageUrl2.toString());
         goodsService.save(goods);
-        
+
     	return toResponsSuccess(goods);
     }
 
@@ -1077,6 +1077,6 @@ public class ApiGoodsController extends ApiBaseAction {
 	public void setFileContentType(List<String> fileContentType) {
 		this.fileContentType = fileContentType;
 	}
-    
-    
+
+
 }

@@ -23,8 +23,8 @@ public class RedisUtils {
     private static String password = null;
 
     static {
-    	
-    	
+
+
     	Properties properties = new Properties();
     	// 使用ClassLoader加载properties配置文件生成对应的输入流
     	InputStream in = RedisUtils.class.getClassLoader().getResourceAsStream("/j2cache.properties");
@@ -38,7 +38,7 @@ public class RedisUtils {
     	String adds = properties.getProperty("redis.adds");
     	int port = Integer.parseInt(properties.getProperty("redis.port"));
     	password = properties.getProperty("redis.password");
-    	
+
         config = new JedisPoolConfig();
         config.setMaxIdle(100);
         config.setMaxIdle(10);
@@ -52,7 +52,7 @@ public class RedisUtils {
      */
     public static Jedis getJedis() {
         Jedis jedis = jedisPool.getResource();
-        jedis.auth(password);
+//        jedis.auth(password);
         return jedis;
     }
 
@@ -86,7 +86,7 @@ public class RedisUtils {
             close(jedis);
         }
     }
-    
+
     /**
      * exists
      *
@@ -149,7 +149,7 @@ public class RedisUtils {
             close(jedis);
         }
     }
-    
+
     public static Long del(String key) {
     	Jedis jedis = null;
         try {
